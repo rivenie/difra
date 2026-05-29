@@ -512,9 +512,9 @@ nav {
 }
 
 /* Services List */
-/*.services-list {
-    padding: 80px 0;
-}*/
+.services-list {
+    padding: 0 0 80px 0;
+}
 
 .service-item {
     display: flex;
@@ -550,9 +550,9 @@ nav {
 }
 
 /* Portfolio */
-/*.portfolio {
-    padding: 80px 0;
-}*/
+.portfolio {
+    padding: 0 0 80px 0;
+}
 
 .portfolio-grid {
     display: grid;
@@ -599,9 +599,9 @@ nav {
 }
 
 /* Blog */
-/*.blog-grid-section {
-    padding: 80px 0;
-}*/
+.blog-grid-section {
+    padding: 0 0 80px 0;
+}
 
 .blog-grid {
     display: grid;
@@ -655,9 +655,9 @@ nav {
 }
 
 /* Contact Page */
-/*.contact-section {
-    padding: 80px 0;
-}*/
+.contact-section {
+    padding: 0 0 80px 0;
+}
 
 .contact-grid {
     display: grid;
