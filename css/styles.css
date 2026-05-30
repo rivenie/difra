@@ -229,12 +229,14 @@ nav {
 
 /* Hero Section */
 .hero {
-    height: 80vh;
+    height: 90vh;
     min-height: 500px;
     display: flex;
     align-items: center;
     position: relative;
-    background: transparent;
+    background-image: url('../img/portada.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 .hero-content {
@@ -248,7 +250,7 @@ nav {
 }
 
 .hero-text h1 {
-    font-size: 4rem;
+    font-size: 6rem;
     color: var(--dark-color);
     margin-bottom: 20px;
     letter-spacing: 2px;
@@ -316,7 +318,7 @@ nav {
 
 /* Methodology */
 .methodology {
-    padding: 0 0 80px 0;
+    padding: 80px 0;
 }
 
 .methodology-grid {
