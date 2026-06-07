@@ -1,6 +1,6 @@
 /* Variables de color */
 :root {
-    --primary-color: #C58D29;
+    --primary-color: #B7975A;
     --primary-dark: #A6761F;
     --secondary-color: #766554;
     --bg-light: #D5C8BF;
@@ -234,7 +234,7 @@ nav {
     display: flex;
     align-items: center;
     position: relative;
-    background-image: url('../img/portada.jpeg');
+    background: linear-gradient(135deg, #181714 0%, #553e27 100%);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -251,7 +251,7 @@ nav {
 
 .hero-text h1 {
     font-size: 6rem;
-    color: var(--dark-color);
+    color: #CDAF79;
     margin-bottom: 20px;
     letter-spacing: 2px;
 }
@@ -317,24 +317,54 @@ nav {
 }
 
 /* Methodology */
-.methodology {
+
+.methodology-carousel {
     padding: 80px 0;
 }
 
-.methodology-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 30px;
+.methodology-carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    overflow: hidden;
+}
+
+.methodology-carousel-track {
+    display: flex;    
+    width: 100%;
+    transition: transform 0.5s ease;
+}
+
+.methodology-carousel-slide {
+    flex-shrink: 0;
+    width: 33%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;    
+}
+
+.methodology-carousel-slide-last {
+    flex-shrink: 0;
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;    
 }
 
 .method-card {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(5px);
-    padding: 30px;
+    padding: 40px 30px;
     border-radius: 15px;
     text-align: center;
     transition: var(--transition);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
 }
 
 .method-card:hover {
@@ -361,7 +391,59 @@ nav {
     color: var(--secondary-color);
 }
 
+.carousel-btn-method {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;    
+}
+
+.carousel-btn-method:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+}
+
+.methodology-carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.method-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ccc;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.method-dot.active {
+    background: var(--primary-color);
+    width: 25px;
+    border-radius: 5px;
+}
+
 /* Services Highlight */
+
+.section-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--secondary-color);
+    max-width: 700px;
+    margin: -30px auto 40px auto;
+    font-family: 'Poppins', sans-serif;
+}
 .services-highlight {
     padding: 80px 0;
     background: rgba(255, 255, 255, 0.5);
@@ -626,7 +708,7 @@ nav {
 
 .blog-card img {
     width: 100%;
-    height: 250px;
+    /*height: 250px;*/
     object-fit: cover;
 }
 
@@ -927,7 +1009,13 @@ footer {
         display: none;
     }
 
-    .hero{
+    .carousel-btn-method {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .hero {
         height: 65vh;
     }
 
