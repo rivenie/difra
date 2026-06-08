@@ -116,11 +116,9 @@ if (yearElement) {
   yearElement.innerHTML = yearElement.innerHTML.replace("2024", currentYear);
 }
 
-// Carrusel Metodología
+// Carrusel Metodología - Loop infinito (sin botones)
 const methodTrack = document.querySelector(".methodology-carousel-track");
 const methodSlides = document.querySelectorAll(".methodology-carousel-slide");
-const prevMethodBtn = document.querySelector(".prev-method");
-const nextMethodBtn = document.querySelector(".next-method");
 const methodDotsContainer = document.querySelector(
   ".methodology-carousel-dots",
 );
@@ -128,10 +126,14 @@ const methodDotsContainer = document.querySelector(
 if (methodTrack && methodSlides.length > 0) {
   let currentIndexMethod = 0;
   let autoMethodInterval;
+  let isMobile = window.innerWidth <= 768;
+
+  function updateSlideWidth() {
+    isMobile = window.innerWidth <= 768;
+  }
 
   function updateMethodCarousel() {
     const slideWidth = methodSlides[0].offsetWidth;
-    console.log("slideWidth:", slideWidth, "currentIndex:", currentIndexMethod);
     methodTrack.style.transform = `translateX(-${currentIndexMethod * slideWidth}px)`;
 
     document.querySelectorAll(".method-dot").forEach((dot, index) => {
@@ -144,46 +146,29 @@ if (methodTrack && methodSlides.length > 0) {
     updateMethodCarousel();
   }
 
-  function prevMethodSlide() {
-    currentIndexMethod =
-      (currentIndexMethod - 1 + methodSlides.length) % methodSlides.length;
-    updateMethodCarousel();
-  }
-
   function startAutoMethod() {
-    autoMethodInterval = setInterval(nextMethodSlide, 4000);
+    autoMethodInterval = setInterval(nextMethodSlide, 5000);
   }
 
   function stopAutoMethod() {
     clearInterval(autoMethodInterval);
   }
 
-  // Crear dots
-  for (let i = 0; i < methodSlides.length; i++) {
-    const dot = document.createElement("div");
-    dot.classList.add("method-dot");
-    if (i === 0) dot.classList.add("active");
-    dot.addEventListener("click", () => {
-      currentIndexMethod = i;
-      updateMethodCarousel();
-      stopAutoMethod();
-      startAutoMethod();
-    });
-    methodDotsContainer.appendChild(dot);
+  // Crear dots (solo si no existen ya)
+  if (methodDotsContainer.children.length === 0) {
+    for (let i = 0; i < methodSlides.length; i++) {
+      const dot = document.createElement("div");
+      dot.classList.add("method-dot");
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => {
+        currentIndexMethod = i;
+        updateMethodCarousel();
+        stopAutoMethod();
+        startAutoMethod();
+      });
+      methodDotsContainer.appendChild(dot);
+    }
   }
-
-  // Eventos
-  prevMethodBtn?.addEventListener("click", () => {
-    prevMethodSlide();
-    stopAutoMethod();
-    startAutoMethod();
-  });
-
-  nextMethodBtn?.addEventListener("click", () => {
-    nextMethodSlide();
-    stopAutoMethod();
-    startAutoMethod();
-  });
 
   startAutoMethod();
 
@@ -193,5 +178,59 @@ if (methodTrack && methodSlides.length > 0) {
   methodContainer?.addEventListener("mouseenter", stopAutoMethod);
   methodContainer?.addEventListener("mouseleave", startAutoMethod);
 
-  window.addEventListener("resize", updateMethodCarousel);
+  window.addEventListener("resize", () => {
+    updateSlideWidth();
+    updateMethodCarousel();
+  });
+
+  updateMethodCarousel();
 }
+
+// Contador animado (clientes)
+// Contador animado en bucle (1 a 99, rápido, imperceptible)
+function animateInfiniteCounter() {
+  const counterElement = document.getElementById("yearsCounter");
+  if (!counterElement) return;
+
+  let currentValue = 1;
+
+  function updateCounter() {
+    currentValue++;
+
+    // Si llega a 99, vuelve a 1
+    if (currentValue > 99) {
+      currentValue = 1;
+    }
+
+    counterElement.textContent = currentValue;
+  }
+
+  // Cambiar cada 50ms (muy rápido, casi imperceptible)
+  setInterval(updateCounter, 50);
+}
+
+// Iniciar contador cuando la sección sea visible
+function initInfiniteCounterOnScroll() {
+  const counterCard = document.querySelector(".counter-card");
+  if (!counterCard) return;
+
+  let started = false;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          animateInfiniteCounter();
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 },
+  );
+
+  observer.observe(counterCard);
+}
+
+// Ejecutar cuando el DOM esté listo
+document.addEventListener("DOMContentLoaded", initInfiniteCounterOnScroll);
