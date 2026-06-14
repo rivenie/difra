@@ -234,3 +234,63 @@ function initInfiniteCounterOnScroll() {
 
 // Ejecutar cuando el DOM esté listo
 document.addEventListener("DOMContentLoaded", initInfiniteCounterOnScroll);
+
+// Modal Blog
+const blogModal = document.getElementById("blogModal");
+const blogModalBody = document.getElementById("blogModalBody");
+const closeModal = document.querySelector(".blog-modal-close");
+
+// Contenido de los blogs
+const blogContent = {
+  0: {
+    title: "MARKETING CON ESTRATEGIA",
+    content:
+      "<p>Publicar no es suficiente. Las marcas que crecen tienen dirección, intención y estrategia.</p><p>Convertimos ideas en acciones que conectan, posicionan y generan resultados reales. Una estrategia bien definida es la diferencia entre presencia digital y crecimiento real.</p><p>El marketing estratégico analiza datos, entiende a la audiencia y crea contenido relevante que genera conversiones. No se trata de estar, se trata de conectar.</p>",
+  },
+  1: {
+    title: "IDENTIDAD QUE CONECTA",
+    content:
+      "<p>Tu marca habla antes que tú. Haz que cada detalle comunique valor.</p><p>Branding, diseño y coherencia visual para marcas memorables. Una identidad bien construida genera confianza, reconocimiento y preferencia en tus clientes.</p><p>Desde el logo hasta los colores, cada elemento debe reflejar la personalidad y los valores de tu marca.</p>",
+  },
+  2: {
+    title: "RESULTADOS CON PROPÓSITO",
+    content:
+      "<p>No buscamos solo presencia digital. Creamos crecimiento con propósito.</p><p>Cada estrategia está pensada para conectar audiencia, fortalecer marca y generar impacto. El éxito no es solo número, es construir relaciones duraderas.</p><p>Trabajamos con métricas que importan: engagement real, lealtad de clientes y crecimiento sostenible.</p>",
+  },
+  3: {
+    title: "SEGUIR UN PLAN DE TRABAJO",
+    content:
+      "<p>Los resultados no ocurren por casualidad. Nacen de un plan claro, constante y bien ejecutado.</p><p>Cada proyecto necesita estructura, objetivos definidos y una estrategia con seguimiento para lograr crecimiento sostenible. La disciplina y la constancia son claves del éxito.</p><p>Planificamos cada paso, medimos resultados y ajustamos el rumbo para garantizar el cumplimiento de objetivos.</p>",
+  },
+};
+
+// Agregar evento a cada "Leer más"
+document.querySelectorAll(".blog-card .read-more").forEach((link, index) => {
+  link.addEventListener("click", function (e) {
+    e.preventDefault();
+    const blogData = blogContent[index % 4]; // Cicla entre los 4 contenidos
+    blogModalBody.innerHTML = `
+            <h2>${blogData.title}</h2>
+            ${blogData.content}
+            <button class="btn btn-primary cerrar-modal" style="margin-top: 20px;">Cerrar</button>
+        `;
+    blogModal.classList.add("show");
+
+    // Evento para cerrar con el botón dentro del modal
+    document.querySelector(".cerrar-modal")?.addEventListener("click", () => {
+      blogModal.classList.remove("show");
+    });
+  });
+});
+
+// Cerrar modal con X
+closeModal?.addEventListener("click", () => {
+  blogModal.classList.remove("show");
+});
+
+// Cerrar modal al hacer clic fuera del contenido
+blogModal?.addEventListener("click", (e) => {
+  if (e.target === blogModal) {
+    blogModal.classList.remove("show");
+  }
+});
